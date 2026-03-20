@@ -1,0 +1,21 @@
+name: Check Links
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install lychee
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/lycheeverse/lychee/master/install.sh | bash
+
+      - name: Run link checker
+        run: |
+          lychee --verbose --no-progress './**/*.md'
